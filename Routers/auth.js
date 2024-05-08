@@ -92,8 +92,12 @@ router.get("/get-user-data", async (req, res) => {
     let token = req.headers["x-auth"];
     let userId = decodeJwtToken(token);
     let user = await User.findById({ _id: userId });
+    let isAdmin=false;
+    if(user.email==="gaurdianadmin@gmail.com"){
+      isAdmin = true;
+    }
 
-    res.status(200).json({ message: "User Data Got Successfully", user });
+    res.status(200).json({ message: "User Data Got Successfully", user,isAdmin });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: err.message });
