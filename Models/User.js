@@ -1,47 +1,47 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
 
 let userSchema = new mongoose.Schema({
   name: {
-    type: "string",
+    type: 'string',
     required: true,
   },
   email: {
-    type: "string",
+    type: 'string',
     required: true,
     unique: true,
   },
   password: {
-    type: "string",
+    type: 'string',
     required: true,
   },
   dob: {
-    type: "string",
+    type: 'string',
   },
   gender: {
-    type: "string",
-    required:true,
+    type: 'string',
+    required: true,
   },
   city: {
-    type: "string",
-    required:true,
+    type: 'string',
+    required: true,
   },
   mobile: {
-    type: "string",
-    required:true,
+    type: 'string',
+    required: true,
   },
   alertNumber: {
-    type: "array",
+    type: 'array',
     default: [],
   },
   lastOtp: {
-    type: "object",
+    type: 'object',
     default: {},
   },
   notifications: {
-    type: "array",
+    type: 'array',
     default: [],
-  }
+  },
 });
 
-let User = mongoose.model("User", userSchema);
+let User = mongoose.model('User', userSchema);
 export { User };

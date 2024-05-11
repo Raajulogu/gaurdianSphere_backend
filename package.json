@@ -14,11 +14,18 @@
   "name": "gaurdian_sphere_backend",
   "version": "1.0.0",
   "main": "index.js",
-  "type":"module",
-  "devDependencies": {},
+  "type": "module",
+  "devDependencies": {
+    "@eslint/js": "^9.2.0",
+    "eslint": "^9.2.0",
+    "globals": "^15.2.0",
+    "husky": "^9.0.11",
+    "prettier": "^3.2.5"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start":"nodemon index.js"
+    "start": "nodemon index.js",
+    "lint": "eslint ."
   },
   "author": "",
   "license": "ISC",
