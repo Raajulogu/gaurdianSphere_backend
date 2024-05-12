@@ -52,5 +52,5 @@ let caseSchema = new mongoose.Schema({
   },
 });
 
-let Case = mongoose.model('User', caseSchema);
+let Case = mongoose.model('Case', caseSchema);
 export { Case };

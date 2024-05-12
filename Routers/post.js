@@ -1,7 +1,7 @@
 import express from 'express';
-import { Post } from '../Models/Post';
-import { User } from '../Models/User';
-import { SendNotification, decodeJwtToken, getCurrentDate } from '../service';
+import { Post } from '../Models/Post.js';
+import { User } from '../Models/User.js';
+import { SendNotification, decodeJwtToken, getCurrentDate } from '../service.js';
 
 let router = express.Router();
 

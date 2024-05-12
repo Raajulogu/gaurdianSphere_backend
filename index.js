@@ -4,6 +4,7 @@ import cors from 'cors';
 import { dbConnection } from './db.js';
 import { authRouter } from './Routers/auth.js';
 import { postRouter } from './Routers/post.js';
+import { caseRouter } from './Routers/case.js';
 
 //ENV Configuration
 dotenv.config();
@@ -22,6 +23,7 @@ dbConnection();
 //routes
 app.use('/api/auth', authRouter);
 app.use('/api/post', postRouter);
+app.use('/api/case', caseRouter);
 
 //Server connection
 app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
