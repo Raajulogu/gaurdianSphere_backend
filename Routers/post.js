@@ -55,7 +55,7 @@ router.post('/newpost', async (req, res) => {
 });
 
 //Update Views
-router.put('/addviews', async (req, res) => {
+router.put('/addviews/:id', async (req, res) => {
   try {
     let token = req.headers['x-auth'];
     let userId = decodeJwtToken(token);
@@ -65,7 +65,7 @@ router.put('/addviews', async (req, res) => {
       res.status(400).json({ message: 'Invalid Authorization' });
       return;
     }
-    let id = req.body.id;
+    let id = req.params.id;
     let post = await Post.findById({ _id: id });
     //Add +1 views on existing views count
     let views = post.views + 1;
@@ -100,7 +100,7 @@ router.get('/get-post', async (req, res) => {
 });
 
 //Edit Post
-router.post('/edit-post', async (req, res) => {
+router.put('/edit-post', async (req, res) => {
   try {
     let token = req.headers['x-auth'];
     let userId = decodeJwtToken(token);

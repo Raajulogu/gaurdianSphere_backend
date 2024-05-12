@@ -53,7 +53,7 @@ router.post('/file-case', async (req, res) => {
 });
 
 //Get User Case's
-router.get('/get-all-case', async (req, res) => {
+router.get('/get-user-case', async (req, res) => {
   try {
     let token = req.headers['x-auth'];
     let userId = decodeJwtToken(token);
@@ -64,6 +64,25 @@ router.get('/get-all-case', async (req, res) => {
       return;
     }
     let data = await Case.find({ userId });
+    res.status(200).json({ message: 'Case Data Got Successfully', case: data });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+//Get All Case's
+router.get('/get-all-case', async (req, res) => {
+  try {
+    let token = req.headers['x-auth'];
+    let userId = decodeJwtToken(token);
+
+    let user = await User.findById({ _id: userId });
+    if (!user) {
+      res.status(400).json({ message: 'Invalid Authorization' });
+      return;
+    }
+    let data = await Case.find();
     res.status(200).json({ message: 'Case Data Got Successfully', case: data });
   } catch (error) {
     console.log(error);
@@ -150,11 +169,11 @@ router.put('/update-case', async (req, res) => {
 });
 
 //Close Case By User
-router.put('/close-case', async (req, res) => {
+router.put('/close-case/:id', async (req, res) => {
   try {
     let token = req.headers['x-auth'];
     let userId = decodeJwtToken(token);
-    let { id } = req.body;
+    let { id } = req.params.id;
     let user = await User.findById({ _id: userId });
     //Checkig is Case is available!
     let case_data = await Case.findById({ _id: id });
