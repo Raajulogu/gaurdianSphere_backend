@@ -164,7 +164,7 @@ router.put('/update-user-notification', async (req, res) => {
         },
       }
     );
-    res.status(200).json({ message: 'User Data Updated Successfully' });
+    res.status(200).json({ message: 'User Notifications Updated Successfully' });
   } catch (error) {
     console.log(error);
     res.status(500).json({ error: error.message });

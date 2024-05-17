@@ -76,6 +76,26 @@ router.get('/get-user-case', async (req, res) => {
   }
 });
 
+//Get User Case's
+router.get('/get-user-case', async (req, res) => {
+  try {
+    let token = req.headers['x-auth'];
+    let userId = decodeJwtToken(token);
+
+    let user = await User.findById({ _id: userId });
+    if (!user || user.email !==process.env.admin_email) {
+      res.status(400).json({ message: 'Invalid Authorization' });
+      return;
+    }
+    let {id}=req.body
+    let data = await Case.find({_id: id });
+    res.status(200).json({ message: 'Case Data Got Successfully', case: data });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 //Get All Case's
 router.get('/get-all-case', async (req, res) => {
   try {
