@@ -99,6 +99,25 @@ router.get('/get-post', async (req, res) => {
   }
 });
 
+//Get User's Post's
+router.get('/get-user-post', async (req, res) => {
+  try {
+    let token = req.headers['x-auth'];
+    let userId = decodeJwtToken(token);
+
+    let user = await User.findById({ _id: userId });
+    if (!user) {
+      res.status(400).json({ message: 'Invalid Authorization' });
+      return;
+    }
+    let post = await Post.find(userId);
+    res.status(200).json({ message: 'User Post Got Successfully', post });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
 //Edit Post
 router.put('/edit-post', async (req, res) => {
   try {

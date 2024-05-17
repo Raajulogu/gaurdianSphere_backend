@@ -87,7 +87,7 @@ router.get('/get-case-byid', async (req, res) => {
       res.status(400).json({ message: 'Invalid Authorization' });
       return;
     }
-    let {id}=req.body
+    let id=req.headers['id']
     let data = await Case.find({_id: id });
     res.status(200).json({ message: 'Case Data Got Successfully', case: data });
   } catch (error) {
