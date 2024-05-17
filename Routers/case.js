@@ -170,7 +170,6 @@ router.put('/update-case', async (req, res) => {
     let user = await User.findById({ _id: userId });
     //Checkig is Case is available!
     let case_data = await Case.findById({ _id: id });
-    // eslint-disable-next-line no-undef
     let admin = process.env.admin_email; //Admin Email
     if (
       !user ||

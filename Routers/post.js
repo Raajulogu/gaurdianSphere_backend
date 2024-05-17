@@ -119,27 +119,25 @@ router.get('/get-user-post', async (req, res) => {
 });
 
 //Edit Post
-router.put('/edit-post', async (req, res) => {
+router.put('/edit-post/:id', async (req, res) => {
   try {
     let token = req.headers['x-auth'];
     let userId = decodeJwtToken(token);
 
     let user = await User.findById({ _id: userId });
     //Checkig is Post is available!
-    let post = await Post.findById({ _id: userId });
+    let post = await Post.findById({ _id: req.params.id });
+    console.log(post.userId,userId)
     if (!user || !post || post.userId !== userId) {
       res.status(400).json({ message: 'Invalid Authorization' });
       return;
     }
-    let { title, details, image, id } = req.body;
+    let { title, details } = req.body;
     //Updating the existing post
     await Post.findOneAndUpdate(
-      { _id: id },
+      { _id: req.params.id },
       {
         $set: {
-          userName: user.name,
-          userGender: user.gender,
-          image,
           title,
           details,
         },
