@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import express from 'express';
 import { User } from '../Models/User.js';
 import { Case } from '../Models/Case.js'
@@ -42,8 +43,12 @@ router.post('/file-case', async (req, res) => {
       case: fileCase._id,
       message: 'Your Case Filed',
     };
-    //Send notification to users
+    //Send notification to user
     SendNotification({ id: userId, content });
+    //Send notification to Admin
+    let admin_email=process.env.admin_email
+    let adminId = await User.findById({ email: admin_email });
+    SendNotification({ id: adminId._id, content });
 
     res.status(201).json({ message: 'Case uploaded Successfully' });
   } catch (err) {

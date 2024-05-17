@@ -98,7 +98,6 @@ router.get('/get-user-data', async (req, res) => {
     if (user.email === admin) {
       isAdmin = true;
     }
-
     res
       .status(200)
       .json({ message: 'User Data Got Successfully', user, isAdmin });
@@ -132,11 +131,36 @@ router.put('/update-user-data', async (req, res) => {
       {
         $set: {
           name: req.body.name,
-          gender: req.body.gender,
           city: req.body.city,
           mobile: req.body.mobile,
           dob: req.body.dob,
           alertNumber: req.body.alertNumber,
+        },
+      }
+    );
+    res.status(200).json({ message: 'User Data Updated Successfully' });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+//Update User Notification view
+router.put('/update-user-notification', async (req, res) => {
+  try {
+    let token = req.headers['x-auth'];
+    let userId = decodeJwtToken(token);
+    let user =await User.findById({ _id: userId })
+    let notifications=user.notifications
+    notifications.map((val)=>{
+      val["isViewed"]=true;
+    })
+    //Updating User Notifications
+    await User.findOneAndUpdate(
+      { _id: userId },
+      {
+        $set: {
+          notifications,
         },
       }
     );
