@@ -110,7 +110,7 @@ router.get('/get-user-post', async (req, res) => {
       res.status(400).json({ message: 'Invalid Authorization' });
       return;
     }
-    let post = await Post.find(userId);
+    let post = await Post.find({userId});
     res.status(200).json({ message: 'User Post Got Successfully', post });
   } catch (error) {
     console.log(error);
