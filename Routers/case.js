@@ -77,7 +77,7 @@ router.get('/get-user-case', async (req, res) => {
 });
 
 //Get User Case's
-router.get('/get-user-case', async (req, res) => {
+router.get('/get-case-byid', async (req, res) => {
   try {
     let token = req.headers['x-auth'];
     let userId = decodeJwtToken(token);
